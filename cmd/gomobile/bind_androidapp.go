@@ -41,9 +41,9 @@ func goAndroidBind(gobind string, pkgs []*packages.Package, targets []targetInfo
 	if bindClasspath != "" {
 		cmd.Args = append(cmd.Args, "-classpath="+bindClasspath)
 	}
-	if bindBootClasspath != "" {
-		cmd.Args = append(cmd.Args, "-bootclasspath="+bindBootClasspath)
-	}
+	//if bindBootClasspath != "" {
+	//	cmd.Args = append(cmd.Args, "-bootclasspath="+bindBootClasspath)
+	//}
 	for _, p := range pkgs {
 		cmd.Args = append(cmd.Args, p.PkgPath)
 	}
@@ -275,17 +275,17 @@ func buildJar(w io.Writer, srcDir string) error {
 		}
 	}
 
-	bClspath, err := bootClasspath()
+	//bClspath, err := bootClasspath()
 
-	if err != nil {
-		return err
-	}
+	//if err != nil {
+	//	return err
+	//}
 
 	args := []string{
 		"-d", dst,
 		"-source", javacTargetVer,
 		"-target", javacTargetVer,
-		"-bootclasspath", bClspath,
+		//"-bootclasspath", bClspath,
 	}
 	if bindClasspath != "" {
 		args = append(args, "-classpath", bindClasspath)

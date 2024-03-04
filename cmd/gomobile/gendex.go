@@ -75,7 +75,7 @@ func gendex() error {
 		"javac",
 		"-source", "17",
 		"-target", "17",
-		"-bootclasspath", platform+"/android.jar",
+		//"-bootclasspath", platform+"/android.jar",
 		"-d", tmpdir+"/work",
 	)
 	cmd.Args = append(cmd.Args, javaFiles...)

@@ -17,7 +17,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/TimaSlipko/gomobile/internal/sdkpath"
 	"golang.org/x/mod/modfile"
 	"golang.org/x/tools/go/packages"
 )
@@ -25,7 +24,7 @@ import (
 var cmdBind = &command{
 	run:   runBind,
 	Name:  "bind",
-	Usage: "[-target android|" + strings.Join(applePlatforms, "|") + "] [-bootclasspath <path>] [-classpath <path>] [-o output] [build flags] [package]",
+	Usage: "[-target android|" + strings.Join(applePlatforms, "|") + "] [-classpath <path>] [-o output] [build flags] [package]",
 	Short: "build a library for Android and iOS",
 	Long: `
 Bind generates language bindings for the package named by the import
@@ -59,8 +58,8 @@ For Apple -target platforms, gomobile must be run on an OS X machine with
 Xcode installed. The generated Objective-C types can be prefixed with the
 -prefix flag.
 
-For -target android, the -bootclasspath and -classpath flags are used to
-control the bootstrap classpath and the classpath for Go wrappers to Java
+For -target android, the -classpath flag is used to
+control the classpath for Go wrappers to Java
 classes.
 
 The -v flag provides verbose output, including the list of packages built.
@@ -139,10 +138,10 @@ func runBind(cmd *command) error {
 }
 
 var (
-	bindPrefix        string // -prefix
-	bindJavaPkg       string // -javapkg
-	bindClasspath     string // -classpath
-	bindBootClasspath string // -bootclasspath
+	bindPrefix    string // -prefix
+	bindJavaPkg   string // -javapkg
+	bindClasspath string // -classpath
+	//bindBootClasspath string // -bootclasspath
 )
 
 func init() {
@@ -152,19 +151,19 @@ func init() {
 	cmdBind.flag.StringVar(&bindPrefix, "prefix", "",
 		"custom Objective-C name prefix. Valid only with -target=ios.")
 	cmdBind.flag.StringVar(&bindClasspath, "classpath", "", "The classpath for imported Java classes. Valid only with -target=android.")
-	cmdBind.flag.StringVar(&bindBootClasspath, "bootclasspath", "", "The bootstrap classpath for imported Java classes. Valid only with -target=android.")
+	//cmdBind.flag.StringVar(&bindBootClasspath, "bootclasspath", "", "The bootstrap classpath for imported Java classes. Valid only with -target=android.")
 }
 
-func bootClasspath() (string, error) {
-	if bindBootClasspath != "" {
-		return bindBootClasspath, nil
-	}
-	apiPath, err := sdkpath.AndroidAPIPath(buildAndroidAPI)
-	if err != nil {
-		return "", err
-	}
-	return filepath.Join(apiPath, "android.jar"), nil
-}
+//func bootClasspath() (string, error) {
+//	if bindBootClasspath != "" {
+//		return bindBootClasspath, nil
+//	}
+//	apiPath, err := sdkpath.AndroidAPIPath(buildAndroidAPI)
+//	if err != nil {
+//		return "", err
+//	}
+//	return filepath.Join(apiPath, "android.jar"), nil
+//}
 
 func copyFile(dst, src string) error {
 	if buildX {
