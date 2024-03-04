@@ -1,4 +1,4 @@
-module  github.com/TimaSlipko/gomobile
+module github.com/TimaSlipko/gomobile
 
 go 1.18
 
