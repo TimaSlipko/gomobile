@@ -122,8 +122,8 @@ type Type struct {
 type TypeKind int
 
 type Importer struct {
-	Bootclasspath string
-	Classpath     string
+	// Bootclasspath string
+	Classpath string
 	// JavaPkg is java package name for generated classes.
 	JavaPkg string
 
@@ -600,9 +600,9 @@ func (j *Importer) importClasses(names []string, allowMissingClasses bool) ([]*C
 	}
 	args := []string{"-J-Duser.language=en", "-s", "-protected", "-constants"}
 	args = append(args, "-classpath", j.Classpath)
-	if j.Bootclasspath != "" {
-		args = append(args, "-bootclasspath", j.Bootclasspath)
-	}
+	//if j.Bootclasspath != "" {
+	//	args = append(args, "-bootclasspath", j.Bootclasspath)
+	//}
 	args = append(args, names...)
 	javapPath, err := javapPath()
 	if err != nil {

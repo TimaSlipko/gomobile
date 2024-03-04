@@ -24,13 +24,13 @@ import (
 )
 
 var (
-	lang          = flag.String("lang", "", "target languages for bindings, either java, go, or objc. If empty, all languages are generated.")
-	outdir        = flag.String("outdir", "", "result will be written to the directory instead of stdout.")
-	javaPkg       = flag.String("javapkg", "", "custom Java package path prefix. Valid only with -lang=java.")
-	prefix        = flag.String("prefix", "", "custom Objective-C name prefix. Valid only with -lang=objc.")
-	bootclasspath = flag.String("bootclasspath", "", "Java bootstrap classpath.")
-	classpath     = flag.String("classpath", "", "Java classpath.")
-	tags          = flag.String("tags", "", "build tags.")
+	lang    = flag.String("lang", "", "target languages for bindings, either java, go, or objc. If empty, all languages are generated.")
+	outdir  = flag.String("outdir", "", "result will be written to the directory instead of stdout.")
+	javaPkg = flag.String("javapkg", "", "custom Java package path prefix. Valid only with -lang=java.")
+	prefix  = flag.String("prefix", "", "custom Objective-C name prefix. Valid only with -lang=objc.")
+	//bootclasspath = flag.String("bootclasspath", "", "Java bootstrap classpath.")
+	classpath = flag.String("classpath", "", "Java classpath.")
+	tags      = flag.String("tags", "", "build tags.")
 )
 
 var usage = `The Gobind tool generates Java language bindings for Go.
@@ -82,9 +82,9 @@ func run() {
 	var classes []*java.Class
 	if len(jrefs.Refs) > 0 {
 		jimp := &java.Importer{
-			Bootclasspath: *bootclasspath,
-			Classpath:     *classpath,
-			JavaPkg:       *javaPkg,
+			//Bootclasspath: *bootclasspath,
+			Classpath: *classpath,
+			JavaPkg:   *javaPkg,
 		}
 		classes, err = jimp.Import(jrefs)
 		if err != nil {
